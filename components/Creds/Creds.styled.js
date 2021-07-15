@@ -2,7 +2,7 @@ import styled, { keyframes, css } from 'styled-components'
 import tw from 'twin.macro'
 
 export const Container = styled.div`
-  ${tw`flex fixed bottom-0 bg-white shadow-2xl p-2 justify-center items-center w-full z-50`}
+  ${tw`flex fixed left-0 bottom-0 bg-white shadow-2xl p-2 justify-center items-center w-full`}
   height: 3rem;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -10,9 +10,10 @@ export const Container = styled.div`
   -webkit-backdrop-filter: blur(15px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  z-index: 2;
 
   @media (max-width: 700px) {
-    ${tw`fixed bg-white mt-8 top-12 z-50`}
+    ${tw`fixed left-auto bg-white mt-8 top-12 z-50`}
     -webkit-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.56);
     -moz-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.56);
     box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.56);

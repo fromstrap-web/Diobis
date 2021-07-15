@@ -229,8 +229,12 @@ const Template = ({ route, repo }) => {
               </LayoutGrid>
             </>
           )}
-          {renderCreds && (
+          {window.innerWidth > 700 ? (
             <Creds noAnimation={noAnimation} visible={credsVisibility} />
+          ) : (
+            renderCreds && (
+              <Creds noAnimation={noAnimation} visible={credsVisibility} />
+            )
           )}
         </LayoutContainer>
       </CSS.Section>
