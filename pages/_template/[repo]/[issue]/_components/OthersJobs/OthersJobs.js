@@ -26,7 +26,7 @@ const OthersJobs = ({ route, repo, user }) => {
       {data.lenght !== 0 && (
         <Container>
           <Slider>
-            {data.length >= 2 && (
+            {data.length && (
               <h1>
                 Outras vagas de <b>{user}</b>
               </h1>
