@@ -47,6 +47,7 @@ const Template = ({ route, repo }) => {
   )
   const { cards, selected, applyed } = useSelector(({ Filter }) => Filter)
   const [filterVisibility, setFilterVisibility] = useState(false)
+  const [windowsWidth, setWindowsWidth] = useState(0)
   const [linksVisibility, setLinksVisibility] = useState(false)
   const [renderLinks, setRenderLinks] = useState(false)
   const [renderCreds, setRenderCreds] = useState(false)
@@ -73,6 +74,10 @@ const Template = ({ route, repo }) => {
   useEffect(() => {
     selected.length < 1 ? dispatch(FILTERED_DATA(data)) : cardsFilter()
   }, [data, applyed])
+
+  useEffect(() => {
+    setWindowsWidth(window.innerWidth)
+  }, [])
 
   function handleActive(index, optionKey, optionText) {
     dispatch(FILTERED(index, optionKey, optionText))
@@ -229,7 +234,7 @@ const Template = ({ route, repo }) => {
               </LayoutGrid>
             </>
           )}
-          {window.innerWidth > 700 ? (
+          {windowsWidth > 700 ? (
             <Creds noAnimation={noAnimation} visible={credsVisibility} />
           ) : (
             renderCreds && (
