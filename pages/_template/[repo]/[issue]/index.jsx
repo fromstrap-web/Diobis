@@ -36,6 +36,7 @@ const Issue = ({ route, repo }) => {
   })
   const [JobsInfo, setJobsInfo] = useState([])
   const [bubbleVisibilty, setBubbleVisibilty] = useState(false)
+  const [windowsWidth, setWindowsWidth] = useState(0)
 
   useEffect(() => {
     // Nao executa caso a query ainda nao tenha sido carregada.
@@ -69,6 +70,10 @@ const Issue = ({ route, repo }) => {
       return dispatch(OTHER_JOBS(JobsInfo.user.name, repo))
     }
   }, [query.issue, JobsInfo])
+
+  useEffect(() => {
+    setWindowsWidth(window.innerWidth)
+  }, [])
 
   function copyToClipboard() {
     const url = window.location.href
@@ -228,8 +233,12 @@ const Issue = ({ route, repo }) => {
               </CSS.Markdown>
             </CSS.Content>
           </CSS.Container>
-          {renderCreds && (
+          {windowsWidth > 700 ? (
             <Creds noAnimation={noAnimation} visible={credsVisibility} />
+          ) : (
+            renderCreds && (
+              <Creds noAnimation={noAnimation} visible={credsVisibility} />
+            )
           )}
         </section>
       )}

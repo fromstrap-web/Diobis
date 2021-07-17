@@ -30,13 +30,17 @@ export const NavbarMobile = styled.nav`
     ${tw`flex w-full justify-end items-center cursor-pointer`}
 
     & button {
-      ${tw`mr-2 flex justify-center items-center`}
+      ${tw` flex justify-center items-center`}
       width: 30px;
       height: 30px;
       transition: 0.5s;
 
       &:hover {
         filter: invert(0.2);
+      }
+
+      &:first-child {
+        ${tw`mr-5`}
       }
     }
   }

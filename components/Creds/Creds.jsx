@@ -8,7 +8,7 @@ import LinkedIn from '../../assets/icons/LinkedIn'
 const Cred = ({ noAnimation, visible }) => (
   <CSS.Container noAnimation={noAnimation} visible={visible}>
     <CSS.Cred>
-      <CSS.Title>Desenvolvido por</CSS.Title>
+      {/* <CSS.Title>Desenvolvido por</CSS.Title> */}
       <CSS.Infos>
         <CSS.Name>
           <span>Yago Crispim</span>

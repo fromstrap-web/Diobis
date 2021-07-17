@@ -72,7 +72,7 @@ export const Title = styled.div`
 `
 
 export const Infos = styled.div`
-  ${tw`flex flex-row justify-center items-center`}
+  ${tw`flex flex-row justify-around px-14 items-center`}
   width: 100%;
 
   & :last-child {
@@ -81,7 +81,7 @@ export const Infos = styled.div`
 
   /* Container com infos */
   @media (max-width: 700px) {
-    ${tw`flex w-full`}
+    ${tw`flex w-full p-0 justify-start`}
   }
 
   // nomes
