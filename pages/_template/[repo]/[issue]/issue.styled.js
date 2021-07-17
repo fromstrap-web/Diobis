@@ -67,7 +67,7 @@ export const InformationsBar = styled.div`
 
   & > div:nth-child(2) {
     top: 300px;
-    height: 55vh;
+    height: ${({ hidden }) => hidden ? '0vh' : '55vh'};
   }
 
   & > div > div:first-child {
