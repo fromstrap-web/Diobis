@@ -249,7 +249,7 @@ const Template = ({ route, repo }) => {
                   )
                 })}
               </LayoutGrid>
-              {windowsWidth < 700 && (
+              {windowsWidth < 700 || !loading && (
                 <button
                   onClick={() => loadAnotherPage()}
                   style={{
