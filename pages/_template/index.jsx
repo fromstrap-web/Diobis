@@ -53,7 +53,7 @@ const Template = ({ route, repo }) => {
   const [renderCreds, setRenderCreds] = useState(false)
   const [credsVisibility, setCredsVisibility] = useState(false)
   const [renderCloseIcon, setRenderCloseIcon] = useState(false)
-  const [renderLoadMoreButton, setRenderMoreButton] = useState(false)
+  const [renderLoadMoreBtn, setRenderLoadMoreBtn] = useState(false)
   const [noAnimation, setNoAnimation] = useState(true)
   const [loadButtonText, setLoadButtonText] = useState('Mais vagas')
   const filterRef = useRef(null)
@@ -78,14 +78,19 @@ const Template = ({ route, repo }) => {
     setWindowsWidth(window.innerWidth)
   }, [])
 
+  /* -------------------------- */
   // FIX => Effects gambiarra
   useEffect(() => {
     setLoadButtonText('Mais vagas')
   }, [filteredData.length])
 
   useEffect(() => {
-    setRenderMoreButton(true)
-  }, [filteredData.length])
+    setTimeout(() => {
+      setRenderLoadMoreBtn(true)
+    }, 1500)
+  }, [loading])
+
+  /* --------------------------- */
 
   async function loadAnotherPage() {
     const nextPage = lastPage + 1
@@ -254,11 +259,12 @@ const Template = ({ route, repo }) => {
                   )
                 })}
               </LayoutGrid>
-              {windowsWidth < 700 && renderLoadMoreButton && (
+              {windowsWidth < 700 && renderLoadMoreBtn && (
                 <button
                   onClick={() => loadAnotherPage()}
                   style={{
                     width: '50%',
+                    maxWidth: '200px',
                     fontSize: '0.9rem',
                     fontWeight: '400',
                     color: '#ffffff',
