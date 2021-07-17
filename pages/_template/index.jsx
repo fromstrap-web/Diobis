@@ -54,15 +54,13 @@ const Template = ({ route, repo }) => {
   const [credsVisibility, setCredsVisibility] = useState(false)
   const [renderCloseIcon, setRenderCloseIcon] = useState(false)
   const [noAnimation, setNoAnimation] = useState(true)
+  const [loadButtonText, setLoadButtonText] = useState('Mais vagas')
   const filterRef = useRef(null)
   filterRef && useOutsideClick(filterRef.current, handleOutsideClick)
 
   useFuncAtEndOfScroll(() => {
-    if (!applyed.length) {
-      const nextPage = lastPage + 1
-
-      dispatch(GET_ANOTHER_PAGE(nextPage, currentRepo))
-      dispatch(UPDATE_CURRENT_PAGE_VALUE(nextPage))
+    if (!applyed.length && windowsWidth > 700) {
+      loadAnotherPage()
     }
   }, [])
 
@@ -78,6 +76,19 @@ const Template = ({ route, repo }) => {
   useEffect(() => {
     setWindowsWidth(window.innerWidth)
   }, [])
+
+  // FIX => Effect gambiarra
+  useEffect(() => {
+    setLoadButtonText('Mais vagas')
+  }, [filteredData.length])
+
+  async function loadAnotherPage() {
+    const nextPage = lastPage + 1
+
+    setLoadButtonText('Carregando...')
+    dispatch(GET_ANOTHER_PAGE(nextPage, currentRepo))
+    dispatch(UPDATE_CURRENT_PAGE_VALUE(nextPage))
+  }
 
   function handleActive(index, optionKey, optionText) {
     dispatch(FILTERED(index, optionKey, optionText))
@@ -219,7 +230,13 @@ const Template = ({ route, repo }) => {
 
           {/* If data loaded */}
           {!loading && !error.active && typeof filteredData !== 'undefined' && (
-            <>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+              }}
+            >
               <LayoutGrid>
                 {filteredData.map(job => {
                   return (
@@ -232,7 +249,23 @@ const Template = ({ route, repo }) => {
                   )
                 })}
               </LayoutGrid>
-            </>
+              {windowsWidth < 700 && (
+                <button
+                  onClick={() => loadAnotherPage()}
+                  style={{
+                    width: '50%',
+                    fontSize: '0.9rem',
+                    fontWeight: '400',
+                    color: '#ffffff',
+                    backgroundColor: '#3B82F6',
+                    padding: '10px',
+                    borderRadius: '10px',
+                  }}
+                >
+                  {loadButtonText}
+                </button>
+              )}
+            </div>
           )}
           {windowsWidth > 700 ? (
             <Creds noAnimation={noAnimation} visible={credsVisibility} />
