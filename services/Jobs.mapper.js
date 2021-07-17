@@ -7,6 +7,7 @@ export function toError(data = {}) {
 export function ObjectToJob(data = {}) {
   return {
     user: {
+      id: data.user.id,
       name: data.user.login,
       avatar: data.user.avatar_url,
     },

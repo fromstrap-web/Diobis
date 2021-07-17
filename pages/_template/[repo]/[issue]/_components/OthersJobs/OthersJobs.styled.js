@@ -2,11 +2,15 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const Container = styled.div`
-  ${tw`w-full text-sm`}
+  ${tw`w-full h-full flex justify-center items-center text-sm`}
+
+  @media(max-width: 700px) {
+    ${tw`relative`}
+  }
 `
 
 export const Slider = styled.ul`
-  ${tw`w-full h-full`}
+  ${tw`w-full h-full absolute top-0 left-0`}
 
   & > :not(:last-child) {
     ${tw`mb-4`}

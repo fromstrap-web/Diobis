@@ -1,3 +1,4 @@
+export const GET_OTHER_JOBS = '@JOBS/GET_OTHER_JOBS'
 export const DATA_PUSH = '@JOBS/DATA_PUSH'
 export const DATA_ERROR = '@JOBS/DATA_ERROR'
 export const DATA_SUCCESS = '@JOBS/DATA_SUCCESS'

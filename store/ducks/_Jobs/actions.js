@@ -29,6 +29,13 @@ export const APPEND_DATA = jobs => {
   }
 }
 
+export const GET_ANOTHER_JOBS = jobs => {
+  return {
+    type: TYPES.GET_OTHER_JOBS,
+    payload: jobs,
+  }
+}
+
 export const UPDATE_CURRENT_PAGE_VALUE = currentPage => {
   return {
     type: TYPES.UPDATE_CURRENT_PAGE_VALUE,
@@ -42,6 +49,16 @@ export const GET_ANOTHER_PAGE = (page, repo) => {
       .then(jobs => dispatch(APPEND_DATA(jobs)))
       // .catch(error => dispatch(ERROR(error)))
       .catch(error => console.log(error))
+  }
+}
+
+export const OTHER_JOBS = (userName, repo) => {
+  return async dispatch => {
+    Service.getByUser(userName, repo)
+      .then(jobs => {
+        dispatch(GET_ANOTHER_JOBS(jobs))
+      })
+      .catch(error => dispatch(ERROR(error)))
   }
 }
 

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   lastPage: 1,
   data: [],
   filteredData: [],
+  otherJobs: [],
   loading: false,
   error: {
     active: false,
@@ -53,6 +54,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       newState.filteredData.push(...action.payload)
       
       return {...newState}
+
+    case TYPES.GET_OTHER_JOBS:
+      return {
+        ...state,
+        otherJobs: action.payload
+      }
 
     default:
       return state

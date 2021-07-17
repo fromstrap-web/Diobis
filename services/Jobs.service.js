@@ -39,12 +39,12 @@ class GitHubService {
       )
   }
 
-  getByUser(userid, repo = 'frontendbr') {
+  getByUser(userName, repo = 'frontendbr') {
     return this.service.issues
       .listForRepo({
         owner: repo,
         repo: 'vagas',
-        creator: userid,
+        creator: userName,
       })
       .then(
         success => Promise.resolve(ArrayToJob(success.data)),

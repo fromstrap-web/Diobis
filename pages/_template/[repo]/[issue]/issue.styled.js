@@ -35,7 +35,7 @@ export const Loading = styled.div`
 `
 
 export const Actions = styled.div`
-  ${tw`flex justify-end mt-8 px-4 relative`}
+  ${tw`flex justify-between items-center mt-8 relative`}
 
   & > svg {
     ${tw`cursor-pointer transition-colors delay-75 ease-in-out w-7`}
@@ -57,55 +57,11 @@ export const LabelsContainer = styled.div`
   }
 `
 
-export const MoreJobs = styled.div`
-  ${tw`flex flex-col items-center justify-center`}
-
-  & > h3 {
-    ${tw`flex-1 pl-4 text-gray-700 mb-4 w-full`}
-  }
-
-  & > div {
-    height: 60vh;
-    overflow: auto;
-    max-width: 90%;
-    ${tw`mb-4`}
-
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.1);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    &::-webkit-scrollbar-thumb:active {
-      background: rgba(0, 0, 0, 0.4);
-    }
-  }
-
-  @media (max-width: ${breakpoint_1000}) {
-    & > div {
-      ${tw`max-w-full`}
-    }
-  }
-`
-
 export const InformationsBar = styled.div`
   ${tw`m-4 p-4 rounded-lg text-gray-700 relative block`}
 
   & > div {
-    top: 112px; /* magia pura */
+    top: 90px; /* magic */
     ${tw`sticky`}
   }
 
@@ -140,6 +96,49 @@ export const InformationsBar = styled.div`
   }
 `
 
+export const MoreJobs = styled.div`
+  ${tw`flex flex-col items-center pr-4 mt-4 justify-center`}
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+
+  @media (max-width: 700px) {
+    padding-right: 1.7rem; /* magic */
+  }
+
+  &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+  & > h3 {
+    ${tw`flex-1 pl-4 text-gray-700 w-full`}
+  }
+
+  & > div {
+    height: min-content;
+    width: 100%;
+  }
+`
+
 export const Markdown = styled.div`
   ${tw`w-3/4 flex justify-center text-gray-700`}
 
@@ -168,4 +167,8 @@ export const Markdown = styled.div`
       max-width: 1000px;
     }
   }
+`
+
+export const Advise = styled.div`
+
 `

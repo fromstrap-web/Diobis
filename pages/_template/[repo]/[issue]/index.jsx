@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   AppLabel,
   AppReader,
@@ -13,12 +14,14 @@ import OthersJobs from './_components/OthersJobs/OthersJobs'
 import Service from '../../../../services/Jobs.service'
 import * as CSS from './issue.styled'
 import { ShareIcon } from '@heroicons/react/outline'
-import { useSelector } from 'react-redux'
 import ClipboardBubble from './_components/ClipboardNotification/ClipboardBubble'
+import { OTHER_JOBS } from '../../../../store/ducks/_Jobs/actions'
 
 const Issue = ({ route, repo }) => {
-  const { query } = useRouter()
+  const { query, pathname } = useRouter()
+  const dispatch = useDispatch()
   const Jobs = useSelector(({ Jobs }) => Jobs.data)
+  const OtherJobs = useSelector(({ Jobs }) => Jobs.otherJobs)
   const [loading, setLoading] = useState(true)
   const [noAnimation, setNoAnimation] = useState(true)
   const [renderLinks, setRenderLinks] = useState(false)
@@ -31,7 +34,7 @@ const Issue = ({ route, repo }) => {
     message: '',
     status: '',
   })
-  const [JobsInfo, setJobsInfo] = useState({})
+  const [JobsInfo, setJobsInfo] = useState([])
   const [bubbleVisibilty, setBubbleVisibilty] = useState(false)
 
   useEffect(() => {
@@ -49,6 +52,7 @@ const Issue = ({ route, repo }) => {
         success => {
           setJobsInfo(success)
           setLoading(false)
+          return success
         },
         ({ message, status }) => {
           setError({ isActive: true, message, status })
@@ -57,6 +61,14 @@ const Issue = ({ route, repo }) => {
       )
     }
   }, [query.issue])
+
+  useEffect(() => {
+    if (!query.issue) return
+
+    if (!!JobsInfo.user) {
+      return dispatch(OTHER_JOBS(JobsInfo.user.name, repo))
+    }
+  }, [query.issue, JobsInfo])
 
   function copyToClipboard() {
     const url = window.location.href
@@ -164,7 +176,7 @@ const Issue = ({ route, repo }) => {
           <CSS.Container>
             <CSS.Content>
               {/* Informations Bar */}
-              <CSS.InformationsBar>
+              <CSS.InformationsBar hidden={!OtherJobs.slice(1).length}>
                 <div>
                   {/* Title and Pic */}
                   <div>
@@ -174,7 +186,7 @@ const Issue = ({ route, repo }) => {
 
                   {/* Labels */}
                   <CSS.LabelsContainer>
-                    {JobsInfo.job.labels.map(label => (
+                    {JobsInfo.job.labels.slice(0, 6).map(label => (
                       <div key={label.id}>
                         <AppLabel
                           key={label.id}
@@ -187,6 +199,9 @@ const Issue = ({ route, repo }) => {
 
                   {/* Actions Bar */}
                   <CSS.Actions>
+                    {OtherJobs.length >= 2 && (<h1>
+                      Outras vagas de <b>{JobsInfo.user.name}</b>
+                    </h1>)}
                     {/* <GlobeAltIcon color="#364250" /> */}
                     <ClipboardBubble
                       text="Link copiado!"
@@ -200,7 +215,7 @@ const Issue = ({ route, repo }) => {
                 </div>
                 <CSS.MoreJobs>
                   <OthersJobs
-                    route={route}
+                    route={pathname.split('/')[1]}
                     repo={repo}
                     user={JobsInfo.user.name}
                   />
