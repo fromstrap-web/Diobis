@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 
 export const Container = styled.div`
   ${tw`flex fixed left-0 bottom-0 bg-white shadow-2xl p-2 justify-center items-center w-full`}
-  height: 3rem;
+  height: 2.5rem;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(15px);
@@ -12,7 +12,7 @@ export const Container = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 2;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`fixed left-auto bg-white mt-8 top-12 z-50`}
     -webkit-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.56);
     -moz-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.56);
@@ -43,7 +43,7 @@ export const Cred = styled.div`
   width: 670px;
 
   // Cred mobile
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`flex flex-col w-full items-start`}
   }
 `
@@ -51,7 +51,7 @@ export const Cred = styled.div`
 export const Separator = styled.div`
   ${tw`hidden`}
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`flex w-full justify-center`}
 
     & div {
@@ -66,7 +66,7 @@ export const Separator = styled.div`
 export const Title = styled.div`
   ${tw`flex flex-row justify-start text-gray-600 text-lg font-semibold pl-4 items-center w-full`}
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`mb-3`}
   }
 `
@@ -80,14 +80,14 @@ export const Infos = styled.div`
   }
 
   /* Container com infos */
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`flex w-full p-0 justify-start`}
   }
 
   // nomes
   & div:first-child {
     /* background-color: yellow; */
-    @media (max-width: 700px) {
+    @media (max-width: 1001px) {
       width: 70%;
 
       & span {
@@ -107,7 +107,7 @@ export const Infos = styled.div`
       width: 20px;
       padding: 10;
 
-      @media (max-width: 700px) {
+      @media (max-width: 1001px) {
         margin: 8px;
       }
 
@@ -117,7 +117,7 @@ export const Infos = styled.div`
       }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 1001px) {
       ${tw`flex`}
       width: 30%;
 
@@ -132,7 +132,7 @@ export const Name = styled.div`
   padding-left: 10px;
   padding-right: 10px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     /* ${tw`bg-blue-600`} */
   }
 
@@ -141,7 +141,7 @@ export const Name = styled.div`
     color: rgb(55, 65, 81);
     justify-content: center;
 
-    @media (max-width: 700px) {
+    @media (max-width: 1001px) {
       ${tw`flex flex-row w-full text-lg items-start`}
     }
   }

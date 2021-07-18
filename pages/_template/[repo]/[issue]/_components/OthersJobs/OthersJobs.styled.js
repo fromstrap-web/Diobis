@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 export const Container = styled.div`
   ${tw`w-full h-full flex justify-center items-center text-sm`}
 
-  @media(max-width: 700px) {
+  @media(max-width: 1001px) {
     ${tw`relative`}
   }
 `

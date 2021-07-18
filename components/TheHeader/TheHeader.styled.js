@@ -18,7 +18,7 @@ export const LogoContainer = styled.div`
 export const Navbar = styled.nav`
   ${tw`w-full h-full`}
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     display: none;
   }
 `
@@ -26,7 +26,7 @@ export const Navbar = styled.nav`
 export const NavbarMobile = styled.nav`
   display: none;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     ${tw`flex w-full justify-end items-center cursor-pointer`}
 
     & button {

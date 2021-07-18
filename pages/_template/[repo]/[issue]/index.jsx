@@ -36,7 +36,7 @@ const Issue = ({ route, repo }) => {
   })
   const [JobsInfo, setJobsInfo] = useState([])
   const [bubbleVisibilty, setBubbleVisibilty] = useState(false)
-  const [windowsWidth, setWindowsWidth] = useState(0)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
     // Nao executa caso a query ainda nao tenha sido carregada.
@@ -72,7 +72,7 @@ const Issue = ({ route, repo }) => {
   }, [query.issue, JobsInfo])
 
   useEffect(() => {
-    setWindowsWidth(window.innerWidth)
+    setWindowWidth(window.innerWidth)
   }, [])
 
   function copyToClipboard() {
@@ -116,6 +116,12 @@ const Issue = ({ route, repo }) => {
     } else {
       setRenderCreds(true)
     }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
   }
 
   return (
@@ -233,11 +239,11 @@ const Issue = ({ route, repo }) => {
               </CSS.Markdown>
             </CSS.Content>
           </CSS.Container>
-          {windowsWidth > 700 ? (
-            <Creds noAnimation={noAnimation} visible={credsVisibility} />
+          {windowWidth >= 1001 ? (
+            <Creds showTitle={false} noAnimation={noAnimation} visible={credsVisibility} />
           ) : (
             renderCreds && (
-              <Creds noAnimation={noAnimation} visible={credsVisibility} />
+              <Creds showTitle={true} noAnimation={noAnimation} visible={credsVisibility} />
             )
           )}
         </section>

@@ -47,7 +47,7 @@ const Template = ({ route, repo }) => {
   )
   const { cards, selected, applyed } = useSelector(({ Filter }) => Filter)
   const [filterVisibility, setFilterVisibility] = useState(false)
-  const [windowsWidth, setWindowsWidth] = useState(0)
+  const [windowWidth, setWindowWidth] = useState(0)
   const [linksVisibility, setLinksVisibility] = useState(false)
   const [renderLinks, setRenderLinks] = useState(false)
   const [renderCreds, setRenderCreds] = useState(false)
@@ -60,7 +60,7 @@ const Template = ({ route, repo }) => {
   filterRef && useOutsideClick(filterRef.current, handleOutsideClick)
 
   useFuncAtEndOfScroll(() => {
-    if (!applyed.length && windowsWidth > 700) {
+    if (!applyed.length && windowWidth > 1001) {
       loadAnotherPage()
     }
   }, [])
@@ -74,9 +74,9 @@ const Template = ({ route, repo }) => {
     selected.length < 1 ? dispatch(FILTERED_DATA(data)) : cardsFilter()
   }, [data, applyed])
 
-  useEffect(() => {
-    setWindowsWidth(window.innerWidth)
-  }, [])
+  // useEffect(() => {
+  //   setWindowWidth(window.innerWidth)
+  // }, [])
 
   /* -------------------------- */
   // FIX => Effects gambiarra
@@ -165,6 +165,12 @@ const Template = ({ route, repo }) => {
     } else {
       setRenderCreds(true)
     }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
   }
 
   return (
@@ -259,7 +265,7 @@ const Template = ({ route, repo }) => {
                   )
                 })}
               </LayoutGrid>
-              {windowsWidth < 700 && renderLoadMoreBtn && (
+              {windowWidth < 1001 && renderLoadMoreBtn && (
                 <button
                   onClick={() => loadAnotherPage()}
                   style={{
@@ -278,11 +284,11 @@ const Template = ({ route, repo }) => {
               )}
             </div>
           )}
-          {windowsWidth > 700 ? (
-            <Creds noAnimation={noAnimation} visible={credsVisibility} />
+          {windowWidth >= 1001 ? (
+            <Creds showTitle={false} noAnimation={noAnimation} visible={credsVisibility} />
           ) : (
             renderCreds && (
-              <Creds noAnimation={noAnimation} visible={credsVisibility} />
+              <Creds showTitle={true} noAnimation={noAnimation} visible={credsVisibility} />
             )
           )}
         </LayoutContainer>

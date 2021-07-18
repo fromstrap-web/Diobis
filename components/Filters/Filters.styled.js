@@ -86,7 +86,7 @@ export const Options = styled.div`
       ${tw`ml-2 leading-6`};
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 1001px) {
       ${tw`mt-4 text-lg`}
     }
   }

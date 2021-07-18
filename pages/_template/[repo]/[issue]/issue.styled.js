@@ -11,8 +11,14 @@ export const Content = styled.div`
   ${tw`flex flex-row justify-center w-full`}
   max-width: 1440px;
 
-  @media (max-width: ${breakpoint_1000}) {
-    ${tw`flex justify-center items-center flex-col`}
+  @media (max-width: 1030px) {
+    ${tw`flex w-full justify-center items-center flex-col`}
+    width: 100%;
+
+    & > div {
+      width: 100%;
+      /* background-color: red; */
+    }
 
     // Card avatar
     & > div:nth-child(1) {
@@ -61,7 +67,8 @@ export const InformationsBar = styled.div`
   ${tw`m-4 p-4 rounded-lg text-gray-700 relative block`}
 
   & > div {
-    top: 90px; /* magic */
+    /* magic */
+    top: 125px;
     ${tw`sticky`}
   }
 
@@ -82,7 +89,7 @@ export const InformationsBar = styled.div`
     ${tw`font-medium text-sm`}
   }
 
-  @media (max-width: ${breakpoint_1000}) {
+  @media (max-width: 1001px) {
     ${tw`w-full justify-center items-center`}
 
     & > div {
@@ -102,7 +109,7 @@ export const MoreJobs = styled.div`
   overflow: auto;
   overflow-x: hidden;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1001px) {
     padding-right: 1.7rem; /* magic */
   }
 
@@ -147,9 +154,9 @@ export const Markdown = styled.div`
     ${tw`bg-white rounded-xl col-start-5 col-span-full m-4 flex-1`}
     padding: 10px;
 
-    @media (max-width: 700px) {
+    @media (max-width: 1030px) {
       ${tw`m-0 p-2`}
-      width: 95%;
+      width: 100%;
     }
   }
 
