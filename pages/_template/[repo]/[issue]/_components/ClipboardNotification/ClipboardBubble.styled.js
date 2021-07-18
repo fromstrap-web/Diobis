@@ -10,9 +10,15 @@ export const ClipboardBubble = styled.div`
 
   ${({ visible }) => {
     if (visible) {
-      return css`opacity: 1; transition: 0.2s;`
+      return css`
+        opacity: 1;
+        transition: 0.2s;
+      `
     } else {
-      return css`opacity: 0; transition: 0.2s;`
+      return css`
+        opacity: 0;
+        transition: 0.2s;
+      `
     }
   }};
 `

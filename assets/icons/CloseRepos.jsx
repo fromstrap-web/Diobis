@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function CloseRepos() {
   return (
@@ -21,7 +21,7 @@ function CloseRepos() {
         <path d="M9 9L15 15"></path>
       </g>
     </svg>
-  );
+  )
 }
 
-export default CloseRepos;
+export default CloseRepos

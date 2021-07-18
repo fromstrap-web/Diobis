@@ -2,6 +2,8 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
+
+// ------------ Components ------------
 import {
   AppLabel,
   AppReader,
@@ -10,18 +12,33 @@ import {
   Links,
   Creds,
 } from '../../../../components'
-import OthersJobs from './_components/OthersJobs/OthersJobs'
-import Service from '../../../../services/Jobs.service'
+
+// ------------ Styles ------------
 import * as CSS from './issue.styled'
+
+// ------------ Icons ------------
 import { ShareIcon } from '@heroicons/react/outline'
+
+// ------------ Local components ------------
+import OthersJobs from './_components/OthersJobs/OthersJobs'
 import ClipboardBubble from './_components/ClipboardNotification/ClipboardBubble'
+
+// ------------ Services ------------
+import Service from '../../../../services/Jobs.service'
+
+// ------------ Redux actions ------------
 import { OTHER_JOBS } from '../../../../store/ducks/_Jobs/actions'
 
-const Issue = ({ route, repo }) => {
+const Issue = ({ repo }) => {
   const { query, pathname } = useRouter()
   const dispatch = useDispatch()
+
+  // Redux
   const Jobs = useSelector(({ Jobs }) => Jobs.data)
   const OtherJobs = useSelector(({ Jobs }) => Jobs.otherJobs)
+  const [JobsInfo, setJobsInfo] = useState([])
+
+  // Layout organization
   const [loading, setLoading] = useState(true)
   const [noAnimation, setNoAnimation] = useState(true)
   const [renderLinks, setRenderLinks] = useState(false)
@@ -29,15 +46,17 @@ const Issue = ({ route, repo }) => {
   const [renderCloseIcon, setRenderCloseIcon] = useState(false)
   const [renderCreds, setRenderCreds] = useState(false)
   const [credsVisibility, setCredsVisibility] = useState(false)
+  const [bubbleVisibilty, setBubbleVisibilty] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  // Other infos
   const [error, setError] = useState({
     isActive: false,
     message: '',
     status: '',
   })
-  const [JobsInfo, setJobsInfo] = useState([])
-  const [bubbleVisibilty, setBubbleVisibilty] = useState(false)
-  const [windowWidth, setWindowWidth] = useState(0)
 
+  // Effects
   useEffect(() => {
     // Nao executa caso a query ainda nao tenha sido carregada.
     if (!query.issue) return
@@ -75,6 +94,13 @@ const Issue = ({ route, repo }) => {
     setWindowWidth(window.innerWidth)
   }, [])
 
+  // Page funcs
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
+  }
+
   function copyToClipboard() {
     const url = window.location.href
 
@@ -86,10 +112,11 @@ const Issue = ({ route, repo }) => {
           if (!bubbleVisibilty) return setBubbleVisibilty(oldState => !oldState)
         }, 2000)
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.message))
   }
 
-  /**
+  // ----------- Animations cycle ------------
+  /*
       Ao final da animação ele remove da DOM o elemento.
       Recebendo apenas 'display:none' não é possível clicar em nada que
     estará abaixo do elemento de links.
@@ -118,20 +145,15 @@ const Issue = ({ route, repo }) => {
     }
   }
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('resize', () => {
-      setWindowWidth(window.innerWidth)
-    })
-  }
-
   return (
     <>
       <TheHeader
         renderCloseIcon={renderCloseIcon}
         openLinks={() => {
+          // Anymation cycle
+          // Change state when click on another header btn
           if (noAnimation) setNoAnimation(false)
 
-          // Ao clicar no outro popup o atual aberto fecha
           if (renderCreds) {
             toggleRenderCreds()
             setCredsVisibility(old => !old)
@@ -141,9 +163,11 @@ const Issue = ({ route, repo }) => {
           setLinksVisibility(old => !old)
         }}
         openCreds={() => {
+          // Anymation cycle
+          // Change state when click on another header btn
+
           if (noAnimation) setNoAnimation(false)
 
-          // Ao clicar no outro popup o atual aberto fecha
           if (renderLinks) {
             toggleRenderLinks()
             setLinksVisibility(old => !old)
@@ -157,7 +181,7 @@ const Issue = ({ route, repo }) => {
         <Links noAnimation={noAnimation} visible={linksVisibility} />
       )}
 
-      {/* TODO: Add mensagem de loading */}
+      {/* TODO: Add loading msg */}
       {loading && !error.isActive && (
         <CSS.Loading>
           <span>Carregando a sua vaga 😉</span>
@@ -210,10 +234,12 @@ const Issue = ({ route, repo }) => {
 
                   {/* Actions Bar */}
                   <CSS.Actions>
-                    {OtherJobs.length >= 2 && (<h1>
-                      Outras vagas de <b>{JobsInfo.user.name}</b>
-                    </h1>)}
-                    {/* <GlobeAltIcon color="#364250" /> */}
+                    {OtherJobs.length >= 2 && (
+                      <h1>
+                        Outras vagas de <b>{JobsInfo.user.name}</b>
+                      </h1>
+                    )}
+
                     <ClipboardBubble
                       text="Link copiado!"
                       visible={bubbleVisibilty}
@@ -240,10 +266,18 @@ const Issue = ({ route, repo }) => {
             </CSS.Content>
           </CSS.Container>
           {windowWidth >= 1001 ? (
-            <Creds showTitle={false} noAnimation={noAnimation} visible={credsVisibility} />
+            <Creds
+              showTitle={false}
+              noAnimation={noAnimation}
+              visible={credsVisibility}
+            />
           ) : (
             renderCreds && (
-              <Creds showTitle={true} noAnimation={noAnimation} visible={credsVisibility} />
+              <Creds
+                showTitle={true}
+                noAnimation={noAnimation}
+                visible={credsVisibility}
+              />
             )
           )}
         </section>

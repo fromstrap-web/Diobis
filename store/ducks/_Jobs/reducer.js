@@ -42,23 +42,23 @@ const reducer = (state = INITIAL_STATE, action) => {
           code: action.payload.status,
         },
       }
-    
+
     case TYPES.UPDATE_CURRENT_PAGE_VALUE:
       return {
         ...state,
-        lastPage: action.payload
+        lastPage: action.payload,
       }
 
     case TYPES.APPEND_DATA:
-      const newState = {...state}
+      const newState = { ...state }
       newState.filteredData.push(...action.payload)
-      
-      return {...newState}
+
+      return { ...newState }
 
     case TYPES.GET_OTHER_JOBS:
       return {
         ...state,
-        otherJobs: action.payload
+        otherJobs: action.payload,
       }
 
     default:

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function About() {
   return (
@@ -18,7 +18,7 @@ function About() {
       <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"></path>
       <path d="M12 17L12.01 17"></path>
     </svg>
-  );
+  )
 }
 
-export default About;
+export default About

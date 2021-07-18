@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-
-// Redux
-import intialState from '../../store/ducks/_Filter/initialState'
 import { useDispatch, useSelector } from 'react-redux'
+
+// ------------ Redux actions ------------
+import intialState from '../../store/ducks/_Filter/initialState'
 import {
   FETCHING,
   FILTERED_DATA,
@@ -19,7 +19,7 @@ import {
   RESET_OPTIONS,
 } from '../../store/ducks/_Filter/actions'
 
-// Components
+// ------------ Components ------------
 import {
   AppCard,
   LayoutGrid,
@@ -31,21 +31,28 @@ import {
   Creds,
 } from '../../components'
 
-// Hooks
+// ------------ Hooks ------------
 import useOutsideClick from '../../hooks/useOutsideClick'
 import useFuncAtEndOfScroll from '../../hooks/useFuncAtEndOfScroll'
 
-// Style
+// ------------ Styles ------------
 import * as CSS from './styled'
 
 const Template = ({ route, repo }) => {
+  // ------------ Other ------------
   const currentRepo = repo
   const router = useRouter()
+  const filterRef = useRef(null)
+
+  // ------------ Redux ------------
   const dispatch = useDispatch()
+  const { cards, selected, applyed } = useSelector(({ Filter }) => Filter)
   const { data, loading, error, filteredData, lastPage } = useSelector(
     ({ Jobs }) => Jobs
   )
-  const { cards, selected, applyed } = useSelector(({ Filter }) => Filter)
+
+  // Layout organization
+  const [renderLoadMoreBtn, setRenderLoadMoreBtn] = useState(false)
   const [filterVisibility, setFilterVisibility] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
   const [linksVisibility, setLinksVisibility] = useState(false)
@@ -53,18 +60,20 @@ const Template = ({ route, repo }) => {
   const [renderCreds, setRenderCreds] = useState(false)
   const [credsVisibility, setCredsVisibility] = useState(false)
   const [renderCloseIcon, setRenderCloseIcon] = useState(false)
-  const [renderLoadMoreBtn, setRenderLoadMoreBtn] = useState(false)
   const [noAnimation, setNoAnimation] = useState(true)
   const [loadButtonText, setLoadButtonText] = useState('Mais vagas')
-  const filterRef = useRef(null)
+
+  // Hooks
   filterRef && useOutsideClick(filterRef.current, handleOutsideClick)
 
+  // Custom hooks
   useFuncAtEndOfScroll(() => {
     if (!applyed.length && windowWidth > 1001) {
       loadAnotherPage()
     }
   }, [])
 
+  // Effects
   useEffect(() => {
     if (data.length === 0) dispatch(FETCHING(currentRepo))
     dispatch(PERSIST_INITIAL(intialState.cards))
@@ -74,23 +83,23 @@ const Template = ({ route, repo }) => {
     selected.length < 1 ? dispatch(FILTERED_DATA(data)) : cardsFilter()
   }, [data, applyed])
 
-  // useEffect(() => {
-  //   setWindowWidth(window.innerWidth)
-  // }, [])
-
-  /* -------------------------- */
-  // FIX => Effects gambiarra
+  // REFACTOR ------------
   useEffect(() => {
     setLoadButtonText('Mais vagas')
   }, [filteredData.length])
 
   useEffect(() => {
     setTimeout(() => {
-      setRenderLoadMoreBtn(true)
+      windowWidth <= 1001 && setRenderLoadMoreBtn(true)
     }, 1500)
-  }, [loading])
+  }, [windowWidth])
 
-  /* --------------------------- */
+  // Page funcs
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
+  }
 
   async function loadAnotherPage() {
     const nextPage = lastPage + 1
@@ -105,8 +114,8 @@ const Template = ({ route, repo }) => {
   }
 
   function handleFilterReset() {
-    dispatch(RESET()) // blue balls
-    dispatch(RESET_OPTIONS()) // reset options
+    dispatch(RESET())
+    dispatch(RESET_OPTIONS())
   }
 
   function applyOptions() {
@@ -138,7 +147,8 @@ const Template = ({ route, repo }) => {
     applyOptions()
   }
 
-  /**
+  // ----------- Animations cycle ------------
+  /*
       Ao final da animação ele remove da DOM o elemento.
       Recebendo apenas 'display:none' não é possível clicar em nada que
     estará abaixo do elemento de links.
@@ -167,12 +177,6 @@ const Template = ({ route, repo }) => {
     }
   }
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('resize', () => {
-      setWindowWidth(window.innerWidth)
-    })
-  }
-
   return (
     <>
       <Head>
@@ -181,9 +185,11 @@ const Template = ({ route, repo }) => {
       <TheHeader
         renderCloseIcon={renderCloseIcon}
         openLinks={() => {
+          // Anymation cycle
+          // Change state when click on another header btn
+
           if (noAnimation) setNoAnimation(false)
 
-          // Ao clicar no outro popup o atual aberto fecha
           if (renderCreds) {
             toggleRenderCreds()
             setCredsVisibility(old => !old)
@@ -193,9 +199,11 @@ const Template = ({ route, repo }) => {
           setLinksVisibility(old => !old)
         }}
         openCreds={() => {
+          // Anymation cycle
+          // Change state when click on another header btn
+
           if (noAnimation) setNoAnimation(false)
 
-          // Ao clicar no outro popup o atual aberto fecha
           if (renderLinks) {
             toggleRenderLinks()
             setLinksVisibility(old => !old)
@@ -235,7 +243,7 @@ const Template = ({ route, repo }) => {
             </CSS.Error>
           )}
 
-          {/* If Data not loading */}
+          {/* Data is loading */}
           {loading && (
             <LayoutGrid>
               {Array.apply(null, Array(12)).map((n, index) => (
@@ -244,7 +252,7 @@ const Template = ({ route, repo }) => {
             </LayoutGrid>
           )}
 
-          {/* If data loaded */}
+          {/* Data loaded */}
           {!loading && !error.active && typeof filteredData !== 'undefined' && (
             <div
               style={{
@@ -265,7 +273,7 @@ const Template = ({ route, repo }) => {
                   )
                 })}
               </LayoutGrid>
-              {windowWidth < 1001 && renderLoadMoreBtn && (
+              {renderLoadMoreBtn && (
                 <button
                   onClick={() => loadAnotherPage()}
                   style={{
@@ -285,10 +293,18 @@ const Template = ({ route, repo }) => {
             </div>
           )}
           {windowWidth >= 1001 ? (
-            <Creds showTitle={false} noAnimation={noAnimation} visible={credsVisibility} />
+            <Creds
+              showTitle={false}
+              noAnimation={noAnimation}
+              visible={credsVisibility}
+            />
           ) : (
             renderCreds && (
-              <Creds showTitle={true} noAnimation={noAnimation} visible={credsVisibility} />
+              <Creds
+                showTitle={true}
+                noAnimation={noAnimation}
+                visible={credsVisibility}
+              />
             )
           )}
         </LayoutContainer>

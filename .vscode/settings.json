@@ -6,6 +6,8 @@
     "README.md": true,
     "jest.config.js": true,
     ".babelrc.js": true,
-    "stories": true
+    "stories": true,
+    ".storybook": true,
+    ".next": true
   }
 }

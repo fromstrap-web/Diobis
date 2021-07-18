@@ -24,7 +24,7 @@ const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
       <CSS.Container>
         <a href="/frontend">
           <CSS.LogoContainer>
-            <Logo />
+            <Logo alt="tela inicial" />
           </CSS.LogoContainer>
         </a>
         <CSS.Navbar>
@@ -46,19 +46,19 @@ const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
         <CSS.NavbarMobile>
           {renderCloseIcon ? (
             <>
-              <button onClick={openCreds}>
+              <button name="abrir créditos" onClick={openCreds}>
                 <About />
               </button>
-              <button onClick={openLinks}>
+              <button name="abrir links" onClick={openLinks}>
                 <CloseRepos />
               </button>
             </>
           ) : (
             <>
-              <button onClick={openCreds}>
+              <button name="abrir créditos" onClick={openCreds}>
                 <About />
               </button>
-              <button onClick={openLinks}>
+              <button name="abrir links" onClick={openLinks}>
                 <MoreRepos />
               </button>
             </>

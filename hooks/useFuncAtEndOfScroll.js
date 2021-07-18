@@ -3,10 +3,11 @@ import { useEffect } from 'react'
 export default function useFuncAtEndOfScroll(action) {
   useEffect(() => {
     window.onscroll = function () {
-      const howMuchToTheEnd = document.documentElement.scrollHeight - window.innerHeight
-      const scrolled = (window.scrollY + 100)
+      const howMuchToTheEnd =
+        document.documentElement.scrollHeight - window.innerHeight
+      const scrolled = window.scrollY + 200
 
-      if ((scrolled + 100) >= howMuchToTheEnd) return action()
+      if (scrolled >= howMuchToTheEnd) return action()
     }
   }, [action])
 }

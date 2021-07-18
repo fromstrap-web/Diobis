@@ -63,7 +63,7 @@ export const OTHER_JOBS = (userName, repo) => {
 }
 
 // ASYNC FN
-export const FETCHING = (repo) => {
+export const FETCHING = repo => {
   return async dispatch => {
     dispatch(PUSH())
     Service.getAll(undefined, repo).then(

@@ -74,7 +74,15 @@ export const InformationsBar = styled.div`
 
   & > div:nth-child(2) {
     top: 300px;
-    height: ${({ hidden }) => hidden ? '0vh' : '55vh'};
+    height: ${({ hidden }) => (hidden ? '0vh' : '55vh')};
+    position: sticky;
+    top: 330px;
+
+    @media (max-width: 1280px) {
+      /* ?? */
+      position: sticky;
+      top: 395px;
+    }
   }
 
   & > div > div:first-child {
@@ -114,27 +122,27 @@ export const MoreJobs = styled.div`
   }
 
   &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
+    width: 6px;
+    height: 6px;
+  }
 
-    &::-webkit-scrollbar-track {
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.1);
-    }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+  }
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.2);
-    }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+  }
 
-    &::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.3);
-    }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-    &::-webkit-scrollbar-thumb:active {
-      background: rgba(0, 0, 0, 0.4);
-    }
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.4);
+  }
 
   & > h3 {
     ${tw`flex-1 pl-4 text-gray-700 w-full`}
@@ -176,6 +184,4 @@ export const Markdown = styled.div`
   }
 `
 
-export const Advise = styled.div`
-
-`
+export const Advise = styled.div``

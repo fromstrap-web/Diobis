@@ -5,4 +5,6 @@ export default {
   component: ClipboardBubble,
 }
 
-export const Bubble = () => <ClipboardBubble text="Link copiado!" visible={true} />
+export const Bubble = () => (
+  <ClipboardBubble text="Link copiado!" visible={true} />
+)

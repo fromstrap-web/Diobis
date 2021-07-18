@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function Icon() {
   return (
@@ -20,7 +20,7 @@ function Icon() {
         d="M64.939 12.116l3.19-3.191M70.09 9.563a2.708 2.708 0 100-5.415 2.708 2.708 0 000 5.415z"
       ></path>
     </svg>
-  );
+  )
 }
 
-export default Icon;
+export default Icon

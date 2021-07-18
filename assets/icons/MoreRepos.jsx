@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function MoreRepos() {
   return (
@@ -54,7 +54,7 @@ function MoreRepos() {
         </g>
       </g>
     </svg>
-  );
+  )
 }
 
-export default MoreRepos;
+export default MoreRepos

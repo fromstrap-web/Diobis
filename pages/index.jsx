@@ -10,7 +10,7 @@ const Container = styled.div`
 export default function Home() {
   return (
     <div>
-      <Head>
+      {/* <Head>
         <title>FromStrap</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
@@ -24,7 +24,7 @@ export default function Home() {
             Visite nosso <a target="_blank" tw="bg-red-600 p-1 text-white" href="https://fromstrap.com">site</a>
           </p>
         </Container>
-      </main>
+      </main> */}
     </div>
   )
 }

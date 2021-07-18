@@ -22,5 +22,5 @@ export const RESET_OPTIONS = _ => ({
 
 export const APPLY_OPTIONS = optionsToApply => ({
   type: TYPES.APPLY_OPTIONS,
-  payload: {optionsToApply}
+  payload: { optionsToApply },
 })

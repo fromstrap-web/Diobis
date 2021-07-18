@@ -1,37 +1,37 @@
-import { useMemo } from "react";
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { useMemo } from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import Reducers from './ducks/rootReducers'
-import Thunk from "redux-thunk";
+import Thunk from 'redux-thunk'
 
-let store;
+let store
 
 function initStore(initialStore) {
   return createStore(
     Reducers,
     initialStore,
     composeWithDevTools(applyMiddleware(Thunk))
-  );
+  )
 }
 
-export const initializeStore = (preLoaded) => {
-  let _store = store ?? initStore(preLoaded);
+export const initializeStore = preLoaded => {
+  let _store = store ?? initStore(preLoaded)
 
   if (preLoaded && store) {
     _store = initStore({
       ...store.getState(),
       ...preLoaded,
-    });
-    store = undefined;
+    })
+    store = undefined
   }
 
-  if (typeof window === "undefined") return _store;
-  if (!store) store = _store;
+  if (typeof window === 'undefined') return _store
+  if (!store) store = _store
 
-  return store;
-};
+  return store
+}
 
 export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState]);
-  return store;
+  const store = useMemo(() => initializeStore(initialState), [initialState])
+  return store
 }
