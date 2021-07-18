@@ -7,13 +7,14 @@ import * as CSS from './TheHeader.styled'
 import MoreRepos from '../../assets/icons/MoreRepos'
 import CloseRepos from '../../assets/icons/CloseRepos'
 import About from '../../assets/icons/About'
+import External from '../../assets/icons/External'
 
 const links = [
-  { title: 'Front-end Brasil', to: '/frontend' },
-  { title: 'Back-end Brasil', to: '/backend' },
-  { title: 'DevOps Brasil', to: '/devops' },
-  { title: 'React Brasil', to: '/react' },
-  { title: 'QA Brasil', to: '/qa' },
+  { title: 'Front-end Br', to: '/frontend' },
+  { title: 'Back-end Br', to: '/backend' },
+  { title: 'DevOps Br', to: '/devops' },
+  { title: 'React Br', to: '/react' },
+  { title: 'QA Br', to: '/qa' },
 ]
 
 const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
@@ -34,6 +35,9 @@ const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
                 {/* <Link href={link.to} children={link.title} /> */}
 
                 <a href={link.to} children={link.title} />
+                <div style={{ marginLeft: '10px' }}>
+                  <External />
+                </div>
               </CSS.Link>
             ))}
           </CSS.Navigator>
@@ -42,14 +46,18 @@ const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
         <CSS.NavbarMobile>
           {renderCloseIcon ? (
             <>
-              <button onClick={openCreds}><About /></button>
+              <button onClick={openCreds}>
+                <About />
+              </button>
               <button onClick={openLinks}>
                 <CloseRepos />
               </button>
             </>
           ) : (
             <>
-              <button onClick={openCreds}><About /></button>
+              <button onClick={openCreds}>
+                <About />
+              </button>
               <button onClick={openLinks}>
                 <MoreRepos />
               </button>

@@ -248,11 +248,11 @@ const Template = ({ route, repo }) => {
               }}
             >
               <LayoutGrid>
-                {filteredData.map(job => {
+                {filteredData.map((job, index) => {
                   return (
                     <AppCard
                       data={job}
-                      key={job.job.id}
+                      key={index}
                       onSave={() => {}}
                       onSelect={() => openJob(job.job.id)}
                     />
