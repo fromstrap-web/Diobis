@@ -10,11 +10,31 @@ import About from '../../assets/icons/About'
 import External from '../../assets/icons/External'
 
 const links = [
-  { title: 'Front-end Br', to: '/frontend' },
-  { title: 'Back-end Br', to: '/backend' },
-  { title: 'DevOps Br', to: '/devops' },
-  { title: 'React Br', to: '/react' },
-  { title: 'QA Br', to: '/qa' },
+  {
+    title: 'Front-end Br',
+    to: '/frontend',
+    github_link: 'https://github.com/frontendbr',
+  },
+  {
+    title: 'Back-end Br',
+    to: '/backend',
+    github_link: 'https://github.com/backend-br',
+  },
+  {
+    title: 'DevOps Brasil',
+    to: '/devops',
+    github_link: 'https://github.com/DevOps-Brazil',
+  },
+  {
+    title: 'React Br',
+    to: '/react',
+    github_link: 'https://github.com/react-brasil/vagas',
+  },
+  {
+    title: 'QA Br',
+    to: '/qa',
+    github_link: 'https://github.com/qa-brasil',
+  },
 ]
 
 const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
@@ -35,9 +55,14 @@ const TheHeader = ({ openLinks, renderCloseIcon, openCreds }) => {
                 {/* <Link href={link.to} children={link.title} /> */}
 
                 <a href={link.to} children={link.title} />
-                <div style={{ marginLeft: '10px' }}>
+                <a  
+                  style={{ marginLeft: '10px' }}
+                  href={link.github_link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   <External />
-                </div>
+                </a>
               </CSS.Link>
             ))}
           </CSS.Navigator>

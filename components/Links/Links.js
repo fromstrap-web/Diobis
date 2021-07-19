@@ -24,7 +24,7 @@ const links = [
   {
     title: 'React Brasil',
     to: '/react',
-    github_link: 'https://github.com/react-brasil/vagas',
+    github_link: 'https://github.com/react-brasil',
   },
   {
     title: 'QA Brasil',
